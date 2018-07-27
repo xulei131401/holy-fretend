@@ -1,37 +1,61 @@
 import axios from 'axios';
-var AJAX = {
+
+export default {
     _hash:"",
-    _cache:{}, //防ajax重复提交
-    base:function(url,params,method,responseType,success,error){
-        axios({
-            method: method,
-            url: url,
-            data: params,//data不会把参数默认拼接到url后头，而params会默认拼接，要注意
-            headers:{AJAX:"json",Origin:"http://www.baidu.com"},
-            // baseURL:'http//bingo.store.com/',
-            timeout: 15000,
+    baseInstance(){
+        //①自定义实例
+        let axiosInstance =  axios.create({
+            headers:{
+                // "AJAX":"json1",
+                // "Content-Type":"application/json",
+                // "Origin":""
+            },
+            // baseURL:'',
+            timeout: 15000,                         //超时设置，单位毫秒
             xsrfCookieName: 'XSRF-TOKEN',
-            xsrfHeaderName: 'X-XSRF-TOKEN', // default
-            responseType: responseType, // default,options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
-        }).then(function (response) {
-            AJAX._cache[url] = true;
+            xsrfHeaderName: 'X-XSRF-TOKEN',         // default
+            responseType: 'json',                   // default,options are 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
+        });
+
+        //②请求前拦截器
+        axiosInstance.interceptors.request.use((config) => {
+            return config;
+        }, (error) => {
+            return Promise.reject(error);
+        })
+
+
+        //③添加响应拦截器
+        axiosInstance.interceptors.response.use((response,config) => {
+            return response;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+
+        return axiosInstance;
+    },
+    result(callback, obj, success, error){
+        callback.then((response) => {
             success && success(response.data);
-          }).catch(function (err) {
-            AJAX._cache[url] = false;
+        }).catch((err) => {
             error && error(err);
-          });
+        });
     },
-    getJson:function (url,success,error) {
-        AJAX.base(url,{},'get','json',success,error);
+    getJson(obj, success, error) {
+        this.result(this.baseInstance().request({
+            url: obj.url,
+            method: 'get',
+            params: obj.params,
+        }), obj, success, error);
     },
-    postJson:function (url,params,success,error) {
-        AJAX.base(url,params,'post','json',success,error);
-    },
-    getLocalJson:function (url,success,error) {
-        
+    postJson(obj, success, error) {
+        this.result(this.baseInstance().request({
+            url: obj.url,
+            method: 'post',
+            params: obj.params,
+            data:obj.data
+        }), obj, success, error);
     }
 
-};
 
-
-export {AJAX};
+}
