@@ -117,10 +117,43 @@ export default {
         return false;
     },
     //数组去重，数组深拷贝，数组浅拷贝
-    setDocumentTitle(title) {
-        document.title = title;
+    uniqueArray(arr) {
+        if (!this.isArray(arr)) {
+            return false
+        }
+        return [...new Set(arr)]        //Set去重，解构赋值转数组
+    },
+    uniqueArray2(arr) {
+        if (!this.isArray(arr)) {
+            return false
+        }
+        return Array.from(new Set(arr))     //Set去重，并转化为数组
+    },
+    uniqueArray3(arr){
+        if (!this.isArray(arr)) {
+            return false
+        }
+
+        let data = [];
+        let flag = true;
+
+        arr.forEach(function(item) {
+            // 排除 NaN (重要！！！)
+            if (item != item) {
+                flag && data.indexOf(item) === -1 ? data.push(item) : '';
+                flag = false;
+            } else {
+                data.indexOf(item) === -1 ? data.push(item) : ''
+            }
+
+        });
+
+        return data;
     },
     /***********************************日期相关******************************************/
+
+
+
     /*****************************加密***************************************/
     md5(s) {
         var hexcase = 0;
@@ -234,7 +267,6 @@ export default {
             return Array(a, b, c, d);
 
         }
-
         /**
          * These functions implement the four basic operations the algorithm uses.
          */
@@ -339,5 +371,9 @@ export default {
             }
 
         }
-    }
+    },
+    /******************************其他题材********************************/
+    setDocumentTitle(title) {
+        document.title = title;
+    },
 }

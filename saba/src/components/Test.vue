@@ -20,11 +20,13 @@
                 // this.XL.log('title','hh', data)
                 // this.XL.jsonLog('title','hh', data)
                 // this.XL.setDocumentTitle('你好啊')
-                this.AJAX.getJson({url:'/wechatmp/classes/v1.1.4/list'}, (data) => {
-                    this.XL.log("打印ajax值：", data)
-                }, (error) => {
-                    console.log(err)
-                })
+                // this.AJAX.getJson({url:'/wechatmp/classes/v1.1.4/list'}, (data) => {
+                //     this.XL.log("打印ajax值：", data)
+                // }, (error) => {
+                //     console.log(err)
+                // })
+
+                // console.log(this.moment.format())
             }
         }
     }
