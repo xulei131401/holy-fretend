@@ -12,12 +12,13 @@
             return {}
         },
         mounted(){
-            this.func();
+            // this.test1();
+            this.test2();
         },
         methods:{
-            func(){
-                // let data = {name:"许磊"}
-                // this.XL.log('title','hh', data)
+            test1(){
+                let data = {name:"许磊"}
+                this.XL.log('title','hh', data)
                 // this.XL.jsonLog('title','hh', data)
                 // this.XL.setDocumentTitle('你好啊')
                 // this.AJAX.getJson({url:'/wechatmp/classes/v1.1.4/list'}, (data) => {
@@ -27,6 +28,12 @@
                 // })
 
                 // console.log(this.moment.format())
+
+
+
+            },
+            test2(){
+
             }
         }
     }
