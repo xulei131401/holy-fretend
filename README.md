@@ -1,2 +1,2 @@
 # holy-fretend
-fretend util components
+用于学习vue和react的练手项目
