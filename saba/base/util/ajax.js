@@ -26,7 +26,7 @@ export default {
 
 
         //③添加响应拦截器
-        axiosInstance.interceptors.response.use((response,config) => {
+        axiosInstance.interceptors.response.use((response) => {
             return response;
         }, function (error) {
             return Promise.reject(error);
