@@ -13,27 +13,30 @@
         },
         mounted(){
             // this.test1();
-            this.test2();
+            this.testFetch();
         },
         methods:{
             test1(){
-                let data = {name:"许磊"}
-                this.XL.log('title','hh', data)
+                // let data = {name:"许磊"}
+                // this.XL.log('title','hh', data)
                 // this.XL.jsonLog('title','hh', data)
                 // this.XL.setDocumentTitle('你好啊')
-                // this.AJAX.getJson({url:'/wechatmp/classes/v1.1.4/list'}, (data) => {
+                // this.AJAX.getJson({url:this.ApiMockRouter.student.detail}, (data) => {
                 //     this.XL.log("打印ajax值：", data)
                 // }, (error) => {
                 //     console.log(err)
                 // })
-
-                // console.log(this.moment.format())
-
-
-
             },
-            test2(){
+            testFetch(){
+                fetch(this.ApiMockRouter.student.detail + "?id=220", {
 
+                }).then( (response) => {
+                        if(response.ok){
+                            return response.json();
+                        }
+                }).then((data) => {
+                    this.XL.log("打印ajax值：", data)
+                })
             }
         }
     }
