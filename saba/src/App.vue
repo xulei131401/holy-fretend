@@ -2,20 +2,26 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Test/>
+    <!--<Test/>-->
+    <Async/>
+    <!--<Prototype/>-->
+    <!--<HelloWorld/>-->
+    <!--<router-view></router-view>-->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Test from './components/Test.vue'
+  import HelloWorld from './components/HelloWorld.vue'
+  import Test from './components/Test.vue'
+  import Prototype from './components/Prototype.vue'
+  import Async from './components/Async.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld,Test
+  export default {
+    name: 'app',
+    components: {
+      HelloWorld,Test,Prototype,Async
+    }
   }
-}
 </script>
 
 <style>

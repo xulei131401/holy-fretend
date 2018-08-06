@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DatePicker,Button } from 'antd';
+// import { DatePicker,Button } from 'antd';
 
 class App extends Component {
 
@@ -52,8 +52,8 @@ class App extends Component {
     return (
       <div className="App">
           <button onClick={this.handleClick}>{this.state.name}</button>
-          <DatePicker />
-          <Button type="primary">Primary</Button>
+          {/*<DatePicker />*/}
+          {/*<Button type="primary">Primary</Button>*/}
       </div>
     );
   }
