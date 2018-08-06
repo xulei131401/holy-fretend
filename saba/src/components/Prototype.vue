@@ -46,13 +46,6 @@
                 obj.myFun.bind(db,['成都','上海'])();       //德玛 年龄 99  来自 成都,上海去往undefined
             },
             testRegexp(){
-                let str = 'xxx'
-                // var reg = new RegExp(/^(?![0-9])/)
-                // let arr = reg.test(str)
-
-                // let res = str.match(/^[0-9A-Za-z_][0-9A-Za-z_]{1,18}$/)
-                // let res = str.match(/^(?![0-9]+$)[0-9A-Za-z_]{1,16}$/)
-                // console.log(res);
 
             }
         }
