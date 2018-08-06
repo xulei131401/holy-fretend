@@ -56,6 +56,4 @@ export default {
             data:obj.data
         }), obj, success, error);
     }
-
-
 }

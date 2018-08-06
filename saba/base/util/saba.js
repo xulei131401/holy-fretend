@@ -88,13 +88,9 @@ export default {
             return !hasProp
         }
     },
-    isEmptyVal(val) {
-        if (this.isUndefined(val)){
-            return true;
-        }
-
+    isEmpty(val) {
         let stringify = JSON.stringify(val);
-        if (-1 !== ['""', '[]', '{}'].indexOf(stringify) || stringify.trim() === ""){
+        if (-1 !== ['""', '[]', '{}', 0, false, undefined, null, ''].indexOf(stringify) || stringify.trim() === ""){
             return true;
         }
 
