@@ -1,5 +1,5 @@
 //import语句必须放在开头
-import ApiRouter from "../api/router.js"
+import ApiAdminConfig from "../../base/api/AdminApiConfig.js"
 // 引入mockjs
 const Mock = require('mockjs');
 

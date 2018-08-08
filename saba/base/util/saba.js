@@ -13,6 +13,12 @@ export default {
     getBrowser() {
         return window.navigator.userAgent.toLowerCase();
     },
+    isAndroid: function () {
+        return this.getBrowser.indexOf('Android') > -1 || this.u.indexOf('Adr') > -1; //android终端
+    },
+    isiOS: function () {
+        return !!this.getBrowser.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    },
     /***************************************log相关******************8****************/
     _logStyle (color = 'green', weight = 600) {
         return `color:${color};font-weight:${weight}`;
@@ -372,4 +378,52 @@ export default {
     setDocumentTitle(title) {
         document.title = title;
     },
+    /******************************localStorage相关********************************/
+    localStorage:{
+        save(key, obj) {
+            if(this.isObject(obj)){
+                obj = JSON.stringify(obj)
+            }
+
+            localStorage.setItem(key, obj);
+        },
+        //查找数据
+        get(key) {
+            return localStorage.getItem(key);
+        }
+    },
+    /******************************sessionStorage相关********************************/
+    sessionStorage: {
+        save:function (key, obj) {
+            sessionStorage.setItem(key, obj);
+        },
+        get:function(key){
+            return sessionStorage.getItem(key);
+        }
+    },
+    /******************************Cookie相关********************************/
+    Cookie: {
+        setCookie(cName, cValue, cAge) {
+            cAge = cAge || 60 * 60 * 24 * 365;
+            cValue = encodeURI(cValue);
+            document.cookie = cName + "=" + cValue +
+                "; max-age=" + cAge +
+                "; path=/";
+        },
+        getCookie(cName) {
+            let cValue = "";
+            let allCookie = document.cookie;
+            let pos = allCookie.indexOf(cName + "=");
+            if (pos !== -1) {
+                let start = pos + cName.length + 1;
+                let end = allCookie.indexOf(";", start);
+                if (end === -1)
+                    end = allCookie.length;
+                cValue = decodeURI(allCookie.substring(start, end));
+            }
+
+            return cValue;
+        }
+    },
+
 }

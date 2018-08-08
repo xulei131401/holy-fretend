@@ -1,7 +1,6 @@
 module.exports = {
-    // baseUrl: process.env.NODE_ENV === 'production' ? '/production-sub-path/' : '/',
     devServer: {
-        proxy: 'http://bingo.store.com'
+        proxy: process.env.NODE_ENV === 'production' ? 'http://bingo.store.com' : 'http://bingo.store.com',
     },
     lintOnSave: false
 }

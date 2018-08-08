@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// const RESPONSE_DATA_KEY = 'data';
+// const RESPONSE_ERROR_MSG_KEY = 'errmsg';
+// const RESPONSE_ERROR_CODE_KEY = 'errcode';
+
 export default {
     _hash:"",
     baseInstance(){
@@ -18,42 +22,66 @@ export default {
         });
 
         //②请求前拦截器
-        axiosInstance.interceptors.request.use((config) => {
-            return config;
-        }, (error) => {
-            return Promise.reject(error);
-        })
+        axiosInstance.interceptors.request.use(
+            (config) => {
+                return config;
+            }, (error) => {
+                return Promise.reject(error);
+            }
+        )
 
 
         //③添加响应拦截器
-        axiosInstance.interceptors.response.use((response) => {
-            return response;
-        }, function (error) {
-            return Promise.reject(error);
-        });
+        axiosInstance.interceptors.response.use(
+            response => {
+                if (response.data.errcode == 200) {
+                    return Promise.resolve(response.data);
+                } else {
+                    return Promise.reject('网络异常，建议您刷新页面或者稍后再试');
+                }
+            },
+            error => {
+                switch (error.data.errcode) {
+                    case 501:
+                        console.log('我是501')
+                        break;
+                    case 503:
+                        console.log('我是503')
+                        localStorage.removeItem('token');
+                        break;
+                    default:
+                }
+
+                return Promise.reject('网络异常，建议您刷新页面或者稍后再试');
+            }
+        );
 
         return axiosInstance;
     },
-    result(callback, obj, success, error){
-        callback.then((response) => {
-            success && success(response.data);
-        }).catch((err) => {
-            error && error(err);
+    getJson(url, params) {
+       return new Promise((resolve, reject) => {
+           this.baseInstance().request({
+               url: url,
+               method: 'get',
+               params: params,
+           }).then( res => {
+               resolve(res.data);
+           }).catch( err => {
+               reject(err)
+           })
+       });
+    },
+    postJson(url, params) {
+        return new Promise((resolve, reject) => {
+            this.baseInstance().request({
+                url: url,
+                method: 'post',
+                params: params,
+            }).then( res => {
+                resolve(res.data);
+            }).catch( err => {
+                reject(err)
+            })
         });
-    },
-    getJson(obj, success, error) {
-        this.result(this.baseInstance().request({
-            url: obj.url,
-            method: 'get',
-            params: obj.params,
-        }), obj, success, error);
-    },
-    postJson(obj, success, error) {
-        this.result(this.baseInstance().request({
-            url: obj.url,
-            method: 'post',
-            params: obj.params,
-            data:obj.data
-        }), obj, success, error);
     }
 }
